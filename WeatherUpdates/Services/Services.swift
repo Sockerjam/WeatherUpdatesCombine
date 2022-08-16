@@ -13,11 +13,15 @@ enum NetworkError: Error {
     case transportError(Error)
 }
 
+enum API {
+    static let key = ""
+}
+
 class Services {
     
     static func fetchWeatherData(from city: String) -> AnyPublisher<WeatherResponse, NetworkError> {
         
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&appid=f640302bc8d078905d351af1df67758a") else {
+        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&units=metric&appid=\(API.key)") else {
             return Fail(error: NetworkError.invalidURL("URL Invalid"))
                 .eraseToAnyPublisher()
         }
